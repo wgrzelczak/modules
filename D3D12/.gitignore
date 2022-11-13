@@ -1,0 +1,9 @@
+.build/
+d3d12_agility_src/*
+!d3d12_agility_src/readme.md
+dxc_src/*
+!dxc_src/readme.md
+pix_src/*
+!pix_src/readme.md
+
+project.4coder
