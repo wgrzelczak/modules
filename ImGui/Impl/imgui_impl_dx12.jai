@@ -283,72 +283,90 @@ create_device_objects :: () -> bool {
     ps_blob : *ID3DBlob;
 
     // Create the vertex shader
+    
+    vs_text :: #string _DONE
+        cbuffer vertexBuffer : register(b0) 
     {
-        vs_text :: #string _DONE
-            cbuffer vertexBuffer : register(b0) 
-            {
-              float4x4 ProjectionMatrix; 
-            };
-            struct VS_INPUT
-            {
-              float2 pos : POSITION;
-              float4 col : COLOR0;
-              float2 uv  : TEXCOORD0;
-            };
-            
-            struct PS_INPUT
-            {
-              float4 pos : SV_POSITION;
-              float4 col : COLOR0;
-              float2 uv  : TEXCOORD0;
-            };
-            
-            PS_INPUT main(VS_INPUT input)
-            {
-              PS_INPUT output;
-              output.pos = mul( ProjectionMatrix, float4(input.pos.xy, 0.f, 1.f));
-              output.col = input.col;
-              output.uv  = input.uv;
-              return output;
-            };
-        _DONE;
-
-        ps_text :: #string _DONE
-            struct PS_INPUT
-            {
-              float4 pos : SV_POSITION;
-              float4 col : COLOR0;
-              float2 uv  : TEXCOORD0;
-            };
-            SamplerState sampler0 : register(s0);
-            Texture2D texture0 : register(t0);
-            
-            float4 main(PS_INPUT input) : SV_Target
-            {
-              float4 out_col = input.col * texture0.Sample(sampler0, input.uv);
-              return out_col;
-            }
-        _DONE;
-
-
-        layout :: D3D12_INPUT_ELEMENT_DESC.[
-            .{ "POSITION", 0, .R32G32_FLOAT,   0, D3D12_APPEND_ALIGNED_ELEMENT, .PER_VERTEX_DATA, 0 },
-            .{ "TEXCOORD", 0, .R32G32_FLOAT,   0, D3D12_APPEND_ALIGNED_ELEMENT, .PER_VERTEX_DATA, 0 },
-            .{ "COLOR",    0, .R8G8B8A8_UNORM, 0, D3D12_APPEND_ALIGNED_ELEMENT, .PER_VERTEX_DATA, 0 },
-        ];
-        pso_desc.InputLayout.pInputElementDescs = layout.data;
-        pso_desc.InputLayout.NumElements        = layout.count;
-
-        bytecode, err, hr := D3dcompiler.D3DCompile(vs_text, "imgui.internal", .[], null, "main", "vs_5_0", 0, 0);
-        check_hr(hr);
-        pso_desc.VS.pShaderBytecode = bytecode.data;
-        pso_desc.VS.BytecodeLength  = cast(u64)bytecode.count;
-
-        bytecode, err, hr = D3dcompiler.D3DCompile(ps_text, "imgui.internal", .[], null, "main", "ps_5_0", 0, 0);
-        pso_desc.PS.pShaderBytecode = bytecode.data;
-        pso_desc.PS.BytecodeLength  = cast(u64)bytecode.count;
+        float4x4 ProjectionMatrix; 
+    };
+    struct VS_INPUT
+    {
+        float2 pos : POSITION;
+        float4 col : COLOR0;
+        float2 uv  : TEXCOORD0;
+    };
+    
+    struct PS_INPUT
+    {
+        float4 pos : SV_POSITION;
+        float4 col : COLOR0;
+        float2 uv  : TEXCOORD0;
+    };
+    
+    PS_INPUT main(VS_INPUT input)
+    {
+        PS_INPUT output;
+        output.pos = mul( ProjectionMatrix, float4(input.pos.xy, 0.f, 1.f));
+        output.col = input.col;
+        output.uv  = input.uv;
+        return output;
+    };
+    _DONE;
+    
+    ps_text :: #string _DONE
+        struct PS_INPUT
+    {
+        float4 pos : SV_POSITION;
+        float4 col : COLOR0;
+        float2 uv  : TEXCOORD0;
+    };
+    SamplerState sampler0 : register(s0);
+    Texture2D texture0 : register(t0);
+    
+    float4 main(PS_INPUT input) : SV_Target
+    {
+        float4 out_col = input.col * texture0.Sample(sampler0, input.uv);
+        return out_col;
     }
-
+    _DONE;
+    
+    
+    layout :: D3D12_INPUT_ELEMENT_DESC.[
+                                        .{ "POSITION", 0, .R32G32_FLOAT,   0, D3D12_APPEND_ALIGNED_ELEMENT, .PER_VERTEX_DATA, 0 },
+                                        .{ "TEXCOORD", 0, .R32G32_FLOAT,   0, D3D12_APPEND_ALIGNED_ELEMENT, .PER_VERTEX_DATA, 0 },
+                                        .{ "COLOR",    0, .R8G8B8A8_UNORM, 0, D3D12_APPEND_ALIGNED_ELEMENT, .PER_VERTEX_DATA, 0 },
+                                        ];
+    pso_desc.InputLayout.pInputElementDescs = layout.data;
+    pso_desc.InputLayout.NumElements        = layout.count;
+    
+    
+    vs_bytecode, vs_errors, vs_success := dxc_compile_from_string(vs_text, .[], "main", "vs_6_6");
+    defer free(vs_bytecode);
+    defer free(vs_errors);
+    
+    if vs_success {
+	    pso_desc.PS.pShaderBytecode = vs_bytecode.data;
+	    pso_desc.PS.BytecodeLength  = cast(u64)vs_bytecode.count;
+        if vs_errors != "" print("DXC Warnings: \n%\n", vs_errors);
+    } else {
+        print("DXC Compilation failed!\n%\n", vs_errors);
+    }
+    
+    pso_desc.VS.pShaderBytecode = vs_bytecode.data;
+    pso_desc.VS.BytecodeLength  = cast(u64)vs_bytecode.count;
+    
+    ps_bytecode, ps_errors, ps_success := dxc_compile_from_string(ps_text, .[], "main", "ps_6_6");
+    defer free(ps_bytecode);
+    defer free(ps_errors);
+    
+    if ps_success {
+	    pso_desc.PS.pShaderBytecode = ps_bytecode.data;
+	    pso_desc.PS.BytecodeLength  = cast(u64)ps_bytecode.count;
+        if ps_errors != "" print("DXC Warnings: \n%\n", ps_errors);
+    } else {
+        print("DXC Compilation failed!\n%\n", ps_errors);
+    }
+    
     pso_desc.BlendState = .{
         AlphaToCoverageEnable = .FALSE,
         RenderTarget[0] = .{
@@ -665,4 +683,3 @@ create_fonts_texture :: () {
 ImGui :: #import "ImGui";
 #import "Math";
 #import "Windows";
-D3dcompiler :: #import "d3d_compiler"; //TODO: change to DXC
