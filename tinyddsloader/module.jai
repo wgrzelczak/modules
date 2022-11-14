@@ -459,7 +459,7 @@ GetBitsPerPixel :: (fmt : DXGIFormat) -> u32 {
 
 Load :: (using dds_file : *DDSFile, filepath : string) -> Result {
     
-    file, success := file_open(filepath);
+    file, success := file_open(tprint("%\0", filepath));
     defer file_close(*file);
     
     if !success return .ErrorFileOpen;
