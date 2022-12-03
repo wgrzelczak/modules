@@ -89,7 +89,7 @@ update_mouse_cursor :: () -> result : bool {
             case .Hand;         win32_cursor = IDC_HAND;
             case .NotAllowed;   win32_cursor = IDC_NO;
         }
-        //SetCursor(LoadCursor(null, win32_cursor)); //@Incomplete winapi    }
+        SetCursor(LoadCursorW(null, win32_cursor));
     }
     return true;
 }
