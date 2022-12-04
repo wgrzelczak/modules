@@ -26,3 +26,10 @@ size_t :: u64;
     #load "unix.jai";
 }
 
+
+
+// handmade bindings
+Payload_IsDataType :: (using payload : Payload, type : string) -> bool 
+{
+    return DataFrameCount != -1 && type == to_string(DataType.data);
+}
