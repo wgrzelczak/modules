@@ -33,3 +33,12 @@ Payload_IsDataType :: (using payload : Payload, type : string) -> bool
 {
     return DataFrameCount != -1 && type == to_string(DataType.data);
 }
+
+// from imgui_internal.h
+
+PushMultiItemsWidths :: (components: s32, width_full: float) -> void #foreign imgui "?PushMultiItemsWidths@ImGui@@YAXHM@Z";
+
+#scope_file
+#if OS == .WINDOWS {
+    imgui :: #foreign_library "windows/ImGui";
+}
