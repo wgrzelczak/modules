@@ -1,0 +1,6 @@
+.build
+.vs
+
+examples/
+!examples/example_d3d12.jai
+source/backends/
