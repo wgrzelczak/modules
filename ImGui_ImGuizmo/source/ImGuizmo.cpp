@@ -1073,6 +1073,10 @@ namespace IMGUIZMO_NAMESPACE
       rightViewInverse.TransformVector(gContext.mModelInverse);
       float rightLength = GetSegmentLengthClipSpace(makeVect(0.f, 0.f), rightViewInverse);
       gContext.mScreenFactor = gContext.mGizmoSizeClipSpace / rightLength;
+      
+      //NYV
+      gContext.mScreenFactor *= 0.75;
+      //NYV
 
       ImVec2 centerSSpace = worldToPos(makeVect(0.f, 0.f), gContext.mMVP);
       gContext.mScreenSquareCenter = centerSSpace;
