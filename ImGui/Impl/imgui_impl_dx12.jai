@@ -347,9 +347,9 @@ create_device_objects :: () -> bool {
     if vs_success {
 	    pso_desc.PS.pShaderBytecode = vs_bytecode.data;
 	    pso_desc.PS.BytecodeLength  = cast(u64)vs_bytecode.count;
-        if vs_errors != "" print("DXC Warnings: \n%\n", vs_errors);
+        if vs_errors != "" log("DXC Warnings: \n%\n", vs_errors);
     } else {
-        print("DXC Compilation failed!\n%\n", vs_errors);
+        log("DXC Compilation failed!\n%\n", vs_errors);
     }
     
     pso_desc.VS.pShaderBytecode = vs_bytecode.data;
@@ -362,9 +362,9 @@ create_device_objects :: () -> bool {
     if ps_success {
 	    pso_desc.PS.pShaderBytecode = ps_bytecode.data;
 	    pso_desc.PS.BytecodeLength  = cast(u64)ps_bytecode.count;
-        if ps_errors != "" print("DXC Warnings: \n%\n", ps_errors);
+        if ps_errors != "" log("DXC Warnings: \n%\n", ps_errors);
     } else {
-        print("DXC Compilation failed!\n%\n", ps_errors);
+        log_error("DXC Compilation failed!\n%\n", ps_errors);
     }
     
     pso_desc.BlendState = .{

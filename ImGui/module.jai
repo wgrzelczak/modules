@@ -35,8 +35,10 @@ Payload_IsDataType :: (using payload : Payload, type : string) -> bool
 }
 
 // from imgui_internal.h
-
+Window :: #type *void;
 PushMultiItemsWidths :: (components: s32, width_full: float) -> void #foreign imgui "?PushMultiItemsWidths@ImGui@@YAXHM@Z";
+FindWindowByName :: (name: *u8) -> *Window #foreign imgui "?FindWindowByName@ImGui@@YAPEAUImGuiWindow@@PEBD@Z";
+SetFocusID :: (id: u32, window: *Window) -> void #foreign imgui "?SetFocusID@ImGui@@YAXIPEAUImGuiWindow@@@Z";
 
 #scope_file
 #if OS == .WINDOWS {

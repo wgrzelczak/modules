@@ -11,7 +11,7 @@
     src := "source/stb_truetype.cpp";
     lib := "stb_tt";
 
-    print("Building static library:\n");
+    log("Building static library:\n");
     build_cpp_static_lib(lib, src);
 
     {
@@ -33,6 +33,6 @@
 		assert(success, "Could not write generated output to \"%\"\n", output_filename);
     }
     
-    print("Building dynamic library:\n");
+    log("Building dynamic library:\n");
     build_cpp_dynamic_lib(lib, src);
 }

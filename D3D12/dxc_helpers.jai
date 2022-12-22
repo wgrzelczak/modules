@@ -53,7 +53,7 @@ dxc_compile :: (source : DxcBuffer, defines : [] string, entry_point : string, t
     vtable(dxc_utils).CreateDefaultIncludeHandler(dxc_utils, *dxc_include_handler);
     
     if !dxc_utils || !dxc_compiler || !dxc_include_handler {
-        print("Couldn't create DXC objects!\n");
+        log_error("Couldn't create DXC objects!\n");
         return "", "", false;
     }
     

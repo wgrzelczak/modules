@@ -11,7 +11,7 @@
         file : DDSFile;
         Load(*file, path);
         defer Unload(*file);
-        print("width = %, height = %, format = %, subresources_count = %, mips = %\n",
+        log("width = %, height = %, format = %, subresources_count = %, mips = %\n",
               file.m_width, file.m_height, file.m_format, file.m_arraySize, file.m_mipCount);
     }
 */
