@@ -506,4 +506,4 @@ stbtt__point :: struct {
 
 #scope_file
 
-stb_tt :: #foreign_library,no_dll "./stb_tt";
+stb_tt :: #library,no_dll "./stb_tt";

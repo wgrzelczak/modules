@@ -2335,4 +2335,4 @@ vtable :: (obj: *ID3D12InfoQueue1) -> *ID3D12InfoQueue1_VTable { return obj.id3d
 
 #scope_file
 
-d3d12 :: #foreign_system_library "d3d12";
+d3d12 :: #system_library "d3d12";

@@ -155,7 +155,7 @@ imgui_visitor :: (decl: *Declaration, parent_decl: *Declaration) -> Declaration_
 
         //print("% -> %\n", old_name, new_name);
 
-        for context.compiler.global_scope.members {
+        for context.generator.global_scope.members {
             if it.kind != .ENUM  || it.name != new_name     continue;
 
             en := cast(*Enum)it;
@@ -228,7 +228,7 @@ imgui_get_function_arg_for_printing :: (func: *Function, type: *Function_Type, m
                     // change its type to a jai string
                     arg_copy := New(Declaration);
                     (<<arg_copy) = <<it;
-                    arg_copy.type = context.compiler.type_def_jai_string;
+                    arg_copy.type = context.generator.type_def_jai_string;
                     if ends_with(it.name, "_begin") {
                         arg_copy.output_name = slice(it.name, 0, it.name.count - "_begin".count);
                     }
@@ -275,7 +275,7 @@ imgui_get_function_arg_for_printing :: (func: *Function, type: *Function_Type, m
 
 SUFFIX_UNIX :: #string END
 
-#if OS == .MACOS    imgui :: #foreign_library "macos/ImGui";
-#if OS == .LINUX    imgui :: #foreign_library "linux/ImGui";
+#if OS == .MACOS    imgui :: #library "macos/ImGui";
+#if OS == .LINUX    imgui :: #library "linux/ImGui";
 
 END

@@ -1663,4 +1663,4 @@ vtable :: (obj: *IDXGIFactory7) -> *IDXGIFactory7_VTable { return obj.idxgifacto
 
 #scope_file
 
-dxgi :: #foreign_system_library "dxgi";
+dxgi :: #system_library "dxgi";

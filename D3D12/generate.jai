@@ -115,7 +115,7 @@ make_default_generator_options :: () -> Generate_Bindings_Options {
     opts.generate_vtable_helpers             = true;
     
     opts.will_print_bindings = () {
-        for context.compiler.global_scope.members {
+        for context.generator.global_scope.members {
             visit_declarations(d3d_visitor, it);
         }
     };
@@ -161,10 +161,10 @@ d3d_visitor :: (decl: *Declaration, parent_decl: *Declaration) -> Declaration_Vi
             
             // Clang on Windows claims that all enums are signed, but MS function declarations expects at least the flags to be unsigned
             if en.type.size == {
-                case 1; en.type = context.compiler.type_def_u8;
-                case 2; en.type = context.compiler.type_def_u16;
-                case 4; en.type = context.compiler.type_def_u32;
-                case 8; en.type = context.compiler.type_def_u64;
+                case 1; en.type = context.generator.type_def_u8;
+                case 2; en.type = context.generator.type_def_u16;
+                case 4; en.type = context.generator.type_def_u32;
+                case 8; en.type = context.generator.type_def_u64;
             }
         }
     }
@@ -174,7 +174,7 @@ d3d_visitor :: (decl: *Declaration, parent_decl: *Declaration) -> Declaration_Vi
         new_name := get_enum_name(decl.name, parent_decl.name);
         if !new_name    return .RECURSE;
         
-        for context.compiler.global_scope.members {
+        for context.generator.global_scope.members {
             if it.kind != .ENUM  || it.name != new_name     continue;
             
             en := cast(*Enum)it;

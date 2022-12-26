@@ -62,5 +62,5 @@ DXGI_DDI_ERR_NONEXCLUSIVE :: 0x887B0003;
 
 #scope_file
 #import "Windows";
-dxgi    :: #foreign_system_library "dxgi";
-dxguid  :: #foreign_system_library "dxguid";
+dxgi    :: #system_library "dxgi";
+dxguid  :: #system_library "dxguid";

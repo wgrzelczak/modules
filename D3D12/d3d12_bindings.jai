@@ -2404,7 +2404,7 @@ D3D12_BLEND_DESC :: struct {
     RenderTarget:           [8] D3D12_RENDER_TARGET_BLEND_DESC;
 }
 
-/* Note, the array size for RenderTarget[] above is D3D12_SIMULTANEOUS_RENDERTARGET_COUNT. 
+/* Note, the array size for RenderTarget[] above is D3D12_SIMULTANEOUS_RENDERTARGET_COUNT.
 IDL processing/generation of this header replaces the define; this comment is merely explaining what happened. */
 D3D12_CONSERVATIVE_RASTERIZATION_MODE :: enum s32 {
     OFF :: 0;
@@ -4555,7 +4555,7 @@ D3D12_GPU_DESCRIPTOR_HANDLE :: struct {
     ptr: u64;
 }
 
-// If rects are supplied in D3D12_DISCARD_REGION, below, the resource 
+// If rects are supplied in D3D12_DISCARD_REGION, below, the resource
 // must have 2D subresources with all specified subresources the same dimension.
 D3D12_DISCARD_REGION :: struct {
     NumRects:         u32;
@@ -6977,7 +6977,7 @@ D3D12_MEMCPY_DEST :: struct {
 //      Pointer to returned interface. May be NULL.
 //
 // Return Values
-//  Any of those documented for 
+//  Any of those documented for
 //          CreateDXGIFactory1
 //          IDXGIFactory::EnumAdapters
 //          D3D12CreateDevice
@@ -7001,16 +7001,16 @@ D3D12GetDebugInterface :: (riid: IID, ppvDebug: **void) -> HRESULT #no_context {
 // D3D12EnableExperimentalFeatures
 //
 // Pass in a list of feature GUIDs to be enabled together.
-// 
+//
 // If a particular feature requires some configuration information on enablement, it will have
 // a configuration struct that can be passed alongside the GUID.
-// 
+//
 // Some features might use an interface IID as the GUID.  For these, once the feature is enabled via
 // D3D12EnableExperimentalFeatures, D3D12GetDebugInterface can then be called with the IID to retrieve the interface
-// for manipulating the feature.  This allows for control that might not cleanly be expressed by just 
+// for manipulating the feature.  This allows for control that might not cleanly be expressed by just
 // the configuration struct that D3D12EnableExperimentalFeatures provides.
 //
-// If this method is called and a change to existing feature enablement is made, 
+// If this method is called and a change to existing feature enablement is made,
 // all current D3D12 devices are set to DEVICE_REMOVED state, since under the covers there is really only one
 // singleton device for a process.  Removing the devices when configuration changes prevents
 // mismatched expectations of how a device is supposed to work after it has been created from the app's point of view.
@@ -9683,4 +9683,4 @@ vtable :: (obj: *ID3D12VideoEncodeCommandList3) -> *ID3D12VideoEncodeCommandList
 
 #scope_file
 
-d3d12 :: #foreign_system_library "d3d12";
+d3d12 :: #system_library "d3d12";

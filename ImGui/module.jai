@@ -21,7 +21,7 @@ size_t :: u64;
 
 #if OS == .WINDOWS {
     #load "windows.jai";
-    user32      :: #foreign_system_library "user32"; // Needed by imgui unless ImGui is compiled it with "IMGUI_DISABLE_WIN32_DEFAULT_CLIPBOARD_FUNCS"
+    user32      :: #system_library "user32"; // Needed by imgui unless ImGui is compiled it with "IMGUI_DISABLE_WIN32_DEFAULT_CLIPBOARD_FUNCS"
 } else {
     #load "unix.jai";
 }
@@ -42,5 +42,5 @@ SetFocusID :: (id: u32, window: *Window) -> void #foreign imgui "?SetFocusID@ImG
 
 #scope_file
 #if OS == .WINDOWS {
-    imgui :: #foreign_library "windows/ImGui";
+    imgui :: #library "windows/ImGui";
 }

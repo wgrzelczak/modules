@@ -88,4 +88,4 @@ pix_set_marker :: (cmd_list: *ID3D12GraphicsCommandList, color: u64, str: PCWSTR
 
 #scope_file
 
-pix_wrapper :: #foreign_library,no_dll "pix_wrapper/x64/pix_wrapper";
+pix_wrapper :: #library,no_dll "pix_wrapper/x64/pix_wrapper";

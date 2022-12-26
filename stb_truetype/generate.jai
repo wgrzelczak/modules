@@ -33,6 +33,6 @@
 		assert(success, "Could not write generated output to \"%\"\n", output_filename);
     }
     
-    log("Building dynamic library:\n");
-    build_cpp_dynamic_lib(lib, src);
+    //log("Building dynamic library:\n");
+    //build_cpp_dynamic_lib(lib, src);
 }

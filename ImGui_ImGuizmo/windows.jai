@@ -54,7 +54,7 @@ DrawCubes :: (view: *float, projection: *float, matrices: *float, matrixCount: s
 DrawGrid :: (view: *float, projection: *float, matrix: *float, gridSize: float) -> void #foreign imguizmo "?DrawGrid@ImGuizmo@@YAXPEBM00M@Z";
 
 // call it when you want a gizmo
-// Needs view and projection matrices. 
+// Needs view and projection matrices.
 // matrix parameter is the source matrix (where will be gizmo be drawn) and might be transformed by the function. Return deltaMatrix is optional
 // translation is applied in world space
 OPERATION :: enum s32 {
@@ -146,4 +146,4 @@ GetStyle :: () -> *Style #foreign imguizmo "?GetStyle@ImGuizmo@@YAAEAUStyle@1@XZ
 
 #scope_file
 
-imguizmo :: #foreign_library "windows/ImGuizmo";
+imguizmo :: #library "windows/ImGuizmo";

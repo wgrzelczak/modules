@@ -168,7 +168,7 @@ D3D12_SIGNATURE_PARAMETER_DESC :: struct {
     // are used (combination of D3D10_COMPONENT_MASK values)
     Mask:            u8;
 
-    // Mask to indicate whether a given component is 
+    // Mask to indicate whether a given component is
     // never written (if this is an output signature) or
     // always read (if this is an input signature).
     // (combination of D3D_MASK_* values)
@@ -911,4 +911,4 @@ vtable :: (obj: *IDxcPdbUtils) -> *IDxcPdbUtils_VTable { return obj.idxcpdbutils
 
 #scope_file
 
-dxcompiler :: #foreign_library,no_dll "dxc_src/lib/x64/dxcompiler";
+dxcompiler :: #library,no_dll "dxc_src/lib/x64/dxcompiler";
