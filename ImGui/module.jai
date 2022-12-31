@@ -1,3 +1,17 @@
+// Note that you need to define a handle_c_assert somewhere in your program:
+/*
+#program_export 
+handle_c_assert :: (condition : bool, c_msg : *u8) #c_call {
+    if !condition {
+    	new_context: Context;
+	    push_context new_context {
+        	assert(condition, "ImGui: %", to_string(c_msg));
+        }
+    }
+}
+*/
+
+
 // Bindings for Dear ImGui.
 
 ImVec2      :: Vector2;

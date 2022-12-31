@@ -3525,4 +3525,4 @@ KeyModFlags_ :: enum_flags s32 {
 
 #scope_file
 
-imgui :: #library "windows/ImGui";
+imgui :: #library,no_dll "windows/ImGui";

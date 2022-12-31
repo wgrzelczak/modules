@@ -55,9 +55,9 @@ generate_bindings :: () -> bool {
         success := true;
         #if OS == .WINDOWS {
             make_directory_if_it_does_not_exist("windows");
-            success &&= build_cpp_dynamic_lib("windows/ImGui", ..imgui_src_files, extra = .["/DIMGUI_API=__declspec(dllexport)"], debug=COMPILE_DEBUG);
+            //success &&= build_cpp_dynamic_lib("windows/ImGui", ..imgui_src_files, extra = .["/DIMGUI_API=__declspec(dllexport)"], debug=COMPILE_DEBUG);
             // We set IMGUI_DISABLE_WIN32_DEFAULT_IME_FUNCTIONS. Otherwise all users of the ImGui module have to link against "imm32".
-            success &&= build_cpp_static_lib("windows/ImGui", ..imgui_src_files, extra = .["/DIMGUI_API=__declspec(dllexport)", "/DIMGUI_DISABLE_WIN32_DEFAULT_IME_FUNCTIONS"], debug=COMPILE_DEBUG);
+            success &&= build_cpp_static_lib("windows/ImGui", ..imgui_src_files, extra = .["/DIMGUI_USER_CONFIG=\"../imconfig_jai.h\"", "/DIMGUI_API=__declspec(dllexport)", "/DIMGUI_DISABLE_WIN32_DEFAULT_IME_FUNCTIONS"], debug=COMPILE_DEBUG);
         } else #if OS == .LINUX {
             make_directory_if_it_does_not_exist("linux");
             success &&= build_cpp_dynamic_lib("linux/ImGui", ..imgui_src_files, debug=COMPILE_DEBUG);
