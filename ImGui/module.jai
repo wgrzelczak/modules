@@ -41,6 +41,7 @@ size_t :: u64;
 }
 
 
+PushID :: (id : u32) { PushID(cast(*void)id); }
 
 // handmade bindings
 Payload_IsDataType :: (using payload : Payload, type : string) -> bool 
@@ -56,5 +57,5 @@ SetFocusID :: (id: u32, window: *Window) -> void #foreign imgui "?SetFocusID@ImG
 
 #scope_file
 #if OS == .WINDOWS {
-    imgui :: #library "windows/ImGui";
+    imgui :: #library,no_dll "windows/ImGui";
 }
