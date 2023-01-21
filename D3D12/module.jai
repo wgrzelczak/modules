@@ -6,7 +6,7 @@ USE_D3D12_AGILITY :: true;
 USE_DXC :: true;
 
 #if USE_D3D12_AGILITY {
-    #program_export D3D12SDKVersion     : u32 = 706;
+    #program_export D3D12SDKVersion     : u32 = 608;
     #program_export D3D12SDKPath        : *u8 = ".\\".data;
 }
 

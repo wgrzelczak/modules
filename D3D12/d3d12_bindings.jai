@@ -569,7 +569,7 @@ D3D12_PACKED_TILE :: 0xffffffff;
 
 D3D12_PIXEL_ADDRESS_RANGE_BIT_COUNT :: 15;
 
-D3D12_PREVIEW_SDK_VERSION :: 706;
+D3D12_PREVIEW_SDK_VERSION :: 707;
 
 D3D12_PRE_SCISSOR_PIXEL_ADDRESS_RANGE_BIT_COUNT :: 16;
 
@@ -702,7 +702,7 @@ D3D12_RESOURCE_BARRIER_ALL_SUBRESOURCES :: 0xffffffff;
 
 D3D12_RS_SET_SHADING_RATE_COMBINER_COUNT :: 2;
 
-D3D12_SDK_VERSION :: 606;
+D3D12_SDK_VERSION :: 608;
 
 D3D12_SHADER_IDENTIFIER_SIZE_IN_BYTES :: 32;
 
@@ -2428,6 +2428,20 @@ D3D12_RASTERIZER_DESC :: struct {
     ConservativeRaster:    D3D12_CONSERVATIVE_RASTERIZATION_MODE;
 }
 
+D3D12_RASTERIZER_DESC1 :: struct {
+    FillMode:              D3D12_FILL_MODE;
+    CullMode:              D3D12_CULL_MODE;
+    FrontCounterClockwise: BOOL;
+    DepthBias:             float;
+    DepthBiasClamp:        float;
+    SlopeScaledDepthBias:  float;
+    DepthClipEnable:       BOOL;
+    MultisampleEnable:     BOOL;
+    AntialiasedLineEnable: BOOL;
+    ForcedSampleCount:     u32;
+    ConservativeRaster:    D3D12_CONSERVATIVE_RASTERIZATION_MODE;
+}
+
 
 ID3D12Object_UUID :: "c4fec28f-7966-4e95-9f94-f431cb56c3b8";
 ID3D12Object :: struct {
@@ -2499,11 +2513,15 @@ D3D12_CACHED_PIPELINE_STATE :: struct {
 }
 
 D3D12_PIPELINE_STATE_FLAGS :: enum_flags u32 {
-    NONE       :: 0x0;
-    TOOL_DEBUG :: 0x1;
+    NONE                           :: 0x0;
+    TOOL_DEBUG                     :: 0x1;
+    DYNAMIC_DEPTH_BIAS             :: 0x4;
+    DYNAMIC_INDEX_BUFFER_STRIP_CUT :: 0x8;
 
-    D3D12_PIPELINE_STATE_FLAG_NONE       :: NONE;
-    D3D12_PIPELINE_STATE_FLAG_TOOL_DEBUG :: TOOL_DEBUG;
+    D3D12_PIPELINE_STATE_FLAG_NONE                           :: NONE;
+    D3D12_PIPELINE_STATE_FLAG_TOOL_DEBUG                     :: TOOL_DEBUG;
+    D3D12_PIPELINE_STATE_FLAG_DYNAMIC_DEPTH_BIAS             :: DYNAMIC_DEPTH_BIAS;
+    D3D12_PIPELINE_STATE_FLAG_DYNAMIC_INDEX_BUFFER_STRIP_CUT :: DYNAMIC_INDEX_BUFFER_STRIP_CUT;
 }
 
 D3D12_GRAPHICS_PIPELINE_STATE_DESC :: struct {
@@ -2575,7 +2593,8 @@ D3D12_PIPELINE_STATE_SUBOBJECT_TYPE :: enum s32 {
     AS                    :: 24;
     MS                    :: 25;
     DEPTH_STENCIL2        :: 26;
-    MAX_VALID             :: 27;
+    RASTERIZER1           :: 27;
+    MAX_VALID             :: 28;
 
     D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_ROOT_SIGNATURE        :: ROOT_SIGNATURE;
     D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_VS                    :: VS;
@@ -2603,6 +2622,7 @@ D3D12_PIPELINE_STATE_SUBOBJECT_TYPE :: enum s32 {
     D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_AS                    :: AS;
     D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_MS                    :: MS;
     D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_DEPTH_STENCIL2        :: DEPTH_STENCIL2;
+    D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_RASTERIZER1           :: RASTERIZER1;
     D3D12_PIPELINE_STATE_SUBOBJECT_TYPE_MAX_VALID             :: MAX_VALID;
 }
 
@@ -2642,6 +2662,7 @@ D3D12_FEATURE :: enum s32 {
     D3D12_OPTIONS13                       :: 42;
     D3D12_OPTIONS14                       :: 43;
     D3D12_OPTIONS15                       :: 44;
+    D3D12_OPTIONS16                       :: 45;
 
     D3D12_FEATURE_D3D12_OPTIONS                         :: D3D12_OPTIONS;
     D3D12_FEATURE_ARCHITECTURE                          :: ARCHITECTURE;
@@ -2678,6 +2699,7 @@ D3D12_FEATURE :: enum s32 {
     D3D12_FEATURE_D3D12_OPTIONS13                       :: D3D12_OPTIONS13;
     D3D12_FEATURE_D3D12_OPTIONS14                       :: D3D12_OPTIONS14;
     D3D12_FEATURE_D3D12_OPTIONS15                       :: D3D12_OPTIONS15;
+    D3D12_FEATURE_D3D12_OPTIONS16                       :: D3D12_OPTIONS16;
 }
 
 D3D12_SHADER_MIN_PRECISION_SUPPORT :: enum s32 {
@@ -3232,6 +3254,11 @@ D3D12_FEATURE_DATA_D3D12_OPTIONS14 :: struct {
 D3D12_FEATURE_DATA_D3D12_OPTIONS15 :: struct {
     TriangleFanSupported:                BOOL;
     DynamicIndexBufferStripCutSupported: BOOL;
+}
+
+D3D12_FEATURE_DATA_D3D12_OPTIONS16 :: struct {
+    DynamicDepthBiasSupported: BOOL;
+    Reserved:                  BOOL;
 }
 
 D3D12_RESOURCE_ALLOCATION_INFO :: struct {
@@ -6667,7 +6694,7 @@ D3D12_BARRIER_SYNC :: enum s32 {
     NONE                                                  :: 0;
     ALL                                                   :: 1;
     DRAW                                                  :: 2;
-    INPUT_ASSEMBLER                                       :: 4;
+    INDEX_INPUT                                           :: 4;
     VERTEX_SHADING                                        :: 8;
     PIXEL_SHADING                                         :: 16;
     DEPTH_STENCIL                                         :: 32;
@@ -6692,7 +6719,7 @@ D3D12_BARRIER_SYNC :: enum s32 {
     D3D12_BARRIER_SYNC_NONE                                                  :: NONE;
     D3D12_BARRIER_SYNC_ALL                                                   :: ALL;
     D3D12_BARRIER_SYNC_DRAW                                                  :: DRAW;
-    D3D12_BARRIER_SYNC_INPUT_ASSEMBLER                                       :: INPUT_ASSEMBLER;
+    D3D12_BARRIER_SYNC_INDEX_INPUT                                           :: INDEX_INPUT;
     D3D12_BARRIER_SYNC_VERTEX_SHADING                                        :: VERTEX_SHADING;
     D3D12_BARRIER_SYNC_PIXEL_SHADING                                         :: PIXEL_SHADING;
     D3D12_BARRIER_SYNC_DEPTH_STENCIL                                         :: DEPTH_STENCIL;
@@ -7256,6 +7283,20 @@ ID3D12GraphicsCommandList8_VTable :: struct #type_info_none {
     OMSetFrontAndBackStencilRef: (this: *ID3D12GraphicsCommandList8, FrontStencilRef: u32, BackStencilRef: u32) -> void #cpp_method;
 }
 vtable :: (obj: *ID3D12GraphicsCommandList8) -> *ID3D12GraphicsCommandList8_VTable { return obj.id3d12graphicscommandlist8_vtable; }
+
+
+
+ID3D12GraphicsCommandList9_UUID :: "34ed2808-ffe6-4c2b-b11a-cabd2b0c59e1";
+ID3D12GraphicsCommandList9 :: struct {
+    #as using id3d12graphicscommandlist8: ID3D12GraphicsCommandList8;
+    #place id3d12graphicscommandlist8; id3d12graphicscommandlist9_vtable: *ID3D12GraphicsCommandList9_VTable;
+}
+ID3D12GraphicsCommandList9_VTable :: struct #type_info_none {
+    using id3d12graphicscommandlist8: ID3D12GraphicsCommandList8_VTable;
+    RSSetDepthBias: (this: *ID3D12GraphicsCommandList9, DepthBias: float, DepthBiasClamp: float, SlopeScaledDepthBias: float) -> void #cpp_method;
+    IASetIndexBufferStripCutValue: (this: *ID3D12GraphicsCommandList9, IBStripCutValue: D3D12_INDEX_BUFFER_STRIP_CUT_VALUE) -> void #cpp_method;
+}
+vtable :: (obj: *ID3D12GraphicsCommandList9) -> *ID3D12GraphicsCommandList9_VTable { return obj.id3d12graphicscommandlist9_vtable; }
 
 
 D3D12_VIDEO_FIELD_TYPE :: enum s32 {

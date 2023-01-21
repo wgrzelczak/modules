@@ -1290,8 +1290,6 @@ D3D12_MESSAGE_ID :: enum s32 {
     UNSUPPORTED_BARRIER_LAYOUT                                                                    :: 1341;
     CREATERESOURCEANDHEAP_INVALID_PARAMETERS                                                      :: 1342;
     ENHANCED_BARRIERS_NOT_SUPPORTED                                                               :: 1343;
-    CAST_TARGET_TEXEL_SIZE_MISMATCH                                                               :: 1344;
-    CAST_TO_PLANAR_NOT_SUPORTED                                                                   :: 1345;
     LEGACY_BARRIER_VALIDATION_FORCED_ON                                                           :: 1346;
     EMPTY_ROOT_DESCRIPTOR_TABLE                                                                   :: 1347;
     COMMAND_LIST_DRAW_ELEMENT_OFFSET_UNALIGNED                                                    :: 1348;
@@ -1305,10 +1303,19 @@ D3D12_MESSAGE_ID :: enum s32 {
     NON_OPTIMAL_BARRIER_ONLY_EXECUTE_COMMAND_LISTS                                                :: 1356;
     EXECUTE_INDIRECT_ZERO_COMMAND_COUNT                                                           :: 1357;
     GPU_BASED_VALIDATION_INCOMPATIBLE_TEXTURE_LAYOUT                                              :: 1358;
-    CREATEGRAPHICSPIPELINESTATE_DYNAMIC_INDEX_BUFFER_STRIP_CUT_NOT_SUPPORTED                      :: 1359;
+    DYNAMIC_INDEX_BUFFER_STRIP_CUT_NOT_SUPPORTED                                                  :: 1359;
     PRIMITIVE_TOPOLOGY_TRIANGLE_FANS_NOT_SUPPORTED                                                :: 1360;
     CREATE_SAMPLER_COMPARISON_FUNC_IGNORED                                                        :: 1361;
-    D3D12_MESSAGES_END                                                                            :: 1362;
+    CREATEHEAP_INVALIDHEAPTYPE                                                                    :: 1362;
+    CREATERESOURCEANDHEAP_INVALIDHEAPTYPE                                                         :: 1363;
+    DYNAMIC_DEPTH_BIAS_NOT_SUPPORTED                                                              :: 1364;
+    CREATERASTERIZERSTATE_NON_WHOLE_DYNAMIC_DEPTH_BIAS                                            :: 1365;
+    DYNAMIC_DEPTH_BIAS_FLAG_MISSING                                                               :: 1366;
+    DYNAMIC_DEPTH_BIAS_NO_PIPELINE                                                                :: 1367;
+    DYNAMIC_INDEX_BUFFER_STRIP_CUT_FLAG_MISSING                                                   :: 1368;
+    DYNAMIC_INDEX_BUFFER_STRIP_CUT_NO_PIPELINE                                                    :: 1369;
+    INVALID_CAST_TARGET                                                                           :: 1371;
+    D3D12_MESSAGES_END                                                                            :: 1372;
 
     D3D12_MESSAGE_ID_UNKNOWN                                                                                       :: UNKNOWN;
     D3D12_MESSAGE_ID_STRING_FROM_APPLICATION                                                                       :: STRING_FROM_APPLICATION;
@@ -2217,8 +2224,6 @@ D3D12_MESSAGE_ID :: enum s32 {
     D3D12_MESSAGE_ID_UNSUPPORTED_BARRIER_LAYOUT                                                                    :: UNSUPPORTED_BARRIER_LAYOUT;
     D3D12_MESSAGE_ID_CREATERESOURCEANDHEAP_INVALID_PARAMETERS                                                      :: CREATERESOURCEANDHEAP_INVALID_PARAMETERS;
     D3D12_MESSAGE_ID_ENHANCED_BARRIERS_NOT_SUPPORTED                                                               :: ENHANCED_BARRIERS_NOT_SUPPORTED;
-    D3D12_MESSAGE_ID_CAST_TARGET_TEXEL_SIZE_MISMATCH                                                               :: CAST_TARGET_TEXEL_SIZE_MISMATCH;
-    D3D12_MESSAGE_ID_CAST_TO_PLANAR_NOT_SUPORTED                                                                   :: CAST_TO_PLANAR_NOT_SUPORTED;
     D3D12_MESSAGE_ID_LEGACY_BARRIER_VALIDATION_FORCED_ON                                                           :: LEGACY_BARRIER_VALIDATION_FORCED_ON;
     D3D12_MESSAGE_ID_EMPTY_ROOT_DESCRIPTOR_TABLE                                                                   :: EMPTY_ROOT_DESCRIPTOR_TABLE;
     D3D12_MESSAGE_ID_COMMAND_LIST_DRAW_ELEMENT_OFFSET_UNALIGNED                                                    :: COMMAND_LIST_DRAW_ELEMENT_OFFSET_UNALIGNED;
@@ -2232,9 +2237,18 @@ D3D12_MESSAGE_ID :: enum s32 {
     D3D12_MESSAGE_ID_NON_OPTIMAL_BARRIER_ONLY_EXECUTE_COMMAND_LISTS                                                :: NON_OPTIMAL_BARRIER_ONLY_EXECUTE_COMMAND_LISTS;
     D3D12_MESSAGE_ID_EXECUTE_INDIRECT_ZERO_COMMAND_COUNT                                                           :: EXECUTE_INDIRECT_ZERO_COMMAND_COUNT;
     D3D12_MESSAGE_ID_GPU_BASED_VALIDATION_INCOMPATIBLE_TEXTURE_LAYOUT                                              :: GPU_BASED_VALIDATION_INCOMPATIBLE_TEXTURE_LAYOUT;
-    D3D12_MESSAGE_ID_CREATEGRAPHICSPIPELINESTATE_DYNAMIC_INDEX_BUFFER_STRIP_CUT_NOT_SUPPORTED                      :: CREATEGRAPHICSPIPELINESTATE_DYNAMIC_INDEX_BUFFER_STRIP_CUT_NOT_SUPPORTED;
+    D3D12_MESSAGE_ID_DYNAMIC_INDEX_BUFFER_STRIP_CUT_NOT_SUPPORTED                                                  :: DYNAMIC_INDEX_BUFFER_STRIP_CUT_NOT_SUPPORTED;
     D3D12_MESSAGE_ID_PRIMITIVE_TOPOLOGY_TRIANGLE_FANS_NOT_SUPPORTED                                                :: PRIMITIVE_TOPOLOGY_TRIANGLE_FANS_NOT_SUPPORTED;
     D3D12_MESSAGE_ID_CREATE_SAMPLER_COMPARISON_FUNC_IGNORED                                                        :: CREATE_SAMPLER_COMPARISON_FUNC_IGNORED;
+    D3D12_MESSAGE_ID_CREATEHEAP_INVALIDHEAPTYPE                                                                    :: CREATEHEAP_INVALIDHEAPTYPE;
+    D3D12_MESSAGE_ID_CREATERESOURCEANDHEAP_INVALIDHEAPTYPE                                                         :: CREATERESOURCEANDHEAP_INVALIDHEAPTYPE;
+    D3D12_MESSAGE_ID_DYNAMIC_DEPTH_BIAS_NOT_SUPPORTED                                                              :: DYNAMIC_DEPTH_BIAS_NOT_SUPPORTED;
+    D3D12_MESSAGE_ID_CREATERASTERIZERSTATE_NON_WHOLE_DYNAMIC_DEPTH_BIAS                                            :: CREATERASTERIZERSTATE_NON_WHOLE_DYNAMIC_DEPTH_BIAS;
+    D3D12_MESSAGE_ID_DYNAMIC_DEPTH_BIAS_FLAG_MISSING                                                               :: DYNAMIC_DEPTH_BIAS_FLAG_MISSING;
+    D3D12_MESSAGE_ID_DYNAMIC_DEPTH_BIAS_NO_PIPELINE                                                                :: DYNAMIC_DEPTH_BIAS_NO_PIPELINE;
+    D3D12_MESSAGE_ID_DYNAMIC_INDEX_BUFFER_STRIP_CUT_FLAG_MISSING                                                   :: DYNAMIC_INDEX_BUFFER_STRIP_CUT_FLAG_MISSING;
+    D3D12_MESSAGE_ID_DYNAMIC_INDEX_BUFFER_STRIP_CUT_NO_PIPELINE                                                    :: DYNAMIC_INDEX_BUFFER_STRIP_CUT_NO_PIPELINE;
+    D3D12_MESSAGE_ID_INVALID_CAST_TARGET                                                                           :: INVALID_CAST_TARGET;
     D3D12_MESSAGE_ID_D3D12_MESSAGES_END                                                                            :: D3D12_MESSAGES_END;
 }
 

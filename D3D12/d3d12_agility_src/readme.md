@@ -1,8 +1,8 @@
 ## Version
-1.706.3-preview
+1.608.0
 
 ## Source
-https://www.nuget.org/packages/Microsoft.Direct3D.D3D12/1.706.3-preview
+https://www.nuget.org/packages/Microsoft.Direct3D.D3D12/1.608.2
 
 ## Current directory content
 ```
