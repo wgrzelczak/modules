@@ -10,6 +10,7 @@ MACOS_MIN_VERSION :: "10.14";
 
 TYPES_TO_OMIT :: string.[
     // We have custom declarations for these in module.jai:
+    "Context",
     "ImVec2",
     "ImVec4",
     "ImColor",
